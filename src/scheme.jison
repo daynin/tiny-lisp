@@ -56,9 +56,9 @@ values
 
 definition
   :'(' define space name space value')'
-    { $$ = { name: $4, type: 'var', values: [$6] }}
+    { $$ = { expr: $4, type: 'var', values: [$6] }}
   |'(' define space expr space values')'
-    { $$ = { name: $4, type: 'function', values: $6 }}
+    { $$ = { expr: $4, type: 'function', values: $6 }}
   ;
 
 id
@@ -73,6 +73,8 @@ expr
     { $$ =  { id: $2 }}
   | '(' id values ')'
     { $$ =  { id: $2, values: $3 }}
+  |'(' lambda space expr space values')'
+    { $$ = { expr: $4, type: 'lambda', values: $6 }}
   ;
 
 code

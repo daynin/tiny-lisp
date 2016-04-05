@@ -28,6 +28,12 @@ const devide = `(function(){
 
 const _call = expr => {}
 
+const _parseTypedExpression = expr => {
+  if (expr.type === 'lambda') {
+    return `function(${expr.expr.id}){return ${parseExpr(expr.values[0])}}`;
+  }
+}
+
 const collectArgs = (values, value) => {
   if (Array.isArray(value)) {
     values = values.concat(value);
@@ -38,7 +44,9 @@ const collectArgs = (values, value) => {
 }
 
 const parseExpr = expr => {
-  if (expr.values) {
+  if (expr.type === 'lambda') {
+    return _parseTypedExpression(expr);
+  } else if (expr.values) {
     if (expr.values.length > 1) {
       return `${expr.id}(${expr.values.map(parseExpr)})`;
     } else if (expr.values.length === 1) {
@@ -53,11 +61,11 @@ const parseExpr = expr => {
   }
 }
 
-const parseDefinition = expr => {
-  if (expr.type === 'var') {
-    return `var ${expr.name} = ${parseExpr(expr.values[0])};`
-  } else if(expr.type === 'function') {
-    return `var ${expr.name.id} = function(${expr.name.values}){ return ${parseExpr(expr.values[0])} };`;
+const parseDefinition = def => {
+  if (def.type === 'var') {
+    return `var ${def.expr} = ${parseExpr(def.values[0])};`
+  } else if (def.type === 'function') {
+    return `var ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
   }
 }
 

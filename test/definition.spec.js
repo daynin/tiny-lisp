@@ -53,8 +53,16 @@ describe('definision', () => {
   });
 
   describe('complex definitions', () => {
-    it('should define vars and functions and then use they together', () =>{
+    it('should define vars and functions and then use they together', () => {
       const result = i.exec('(define a 10)\n(define (square x) (* x x))\n(square a)');
+
+      expect(result).toBe(100);
+    });
+  });
+
+  describe('lambda definition', () => {
+    it('should be able to save lambda in a variable', () => {
+      const result = i.exec('(define square (lambda (x) (* x x)))(square 10)');
 
       expect(result).toBe(100);
     });
