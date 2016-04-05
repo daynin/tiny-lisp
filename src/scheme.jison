@@ -75,6 +75,10 @@ expr
     { $$ =  { id: $2, values: $3 }}
   |'(' lambda space expr space values')'
     { $$ = { expr: $4, type: 'lambda', values: $6 }}
+  |'(' lambda expr space values')'
+    { $$ = { expr: $3, type: 'lambda', values: $5 }}
+  |'(' lambda expr values')'
+    { $$ = { expr: $3, type: 'lambda', values: $4 }}
   ;
 
 code

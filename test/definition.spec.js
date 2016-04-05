@@ -67,6 +67,18 @@ describe('definision', () => {
       expect(result).toBe(100);
     });
 
+    it('should ignore a space between the "lambda" keyword and a list of args', () => {
+      const result = i.exec('(define square (lambda(x) (* x x)))(square 10)');
+
+      expect(result).toBe(100);
+    });
+
+    it('should ignore a space between the "lambda" keyword and a list of args', () => {
+      const result = i.exec('(define square (lambda(x)(* x x)))(square 10)');
+
+      expect(result).toBe(100);
+    });
+
     it('should be able to use lambda as an argument', () => {
       const result = i.exec('(define (calc value action) (action value))(calc 10 (lambda (x) (* x x)))');
 
