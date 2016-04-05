@@ -33,5 +33,11 @@ describe('calculations', () => {
 
     expect(result).toBe(32);
   });
+
+  it('should parse function definitions with an if statement', () => {
+    const result = i.exec('(define (if2) (if 2 "yes" "no"))(if2)')
+
+    expect(result).toBe('yes');
+  });
 });
 

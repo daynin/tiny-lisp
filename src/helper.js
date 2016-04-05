@@ -12,6 +12,7 @@ var result = [];
   }
   return result;
 }
+
 `;
 
 const add = `(function(){
@@ -93,13 +94,11 @@ const parseExpr = expr => {
   } else if (expr.values) {
     if (expr.values.length > 1) {
       return `${expr.id}(${expr.values.map(parseExpr)})`;
-    } else if (expr.values.length === 1) {
+    } else if(expr.values.length === 1) {
       return `${expr.id}(${expr.values.map(parseExpr)})`;
     } else {
-      return `${expr.id}()`;
+      return `if(typeof ${expr.id} === 'function') {${expr.id}()} else {${expr.id}}`
     }
-  } else if (expr.id) {
-    return `${expr.id}`;
   } else {
     return expr;
   }
@@ -112,12 +111,17 @@ const parseDefinition = def => {
     return `let ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
   } else if (def.type === 'let') {
     return _parseLetDefinitions(def);
-  } else if (def.type === 'if'){
+  } else if (def.type === 'if') {
     return _parseIf(def);
     return a;
   } else if (def.type === 'lambda') {
     return _parseTypedExpression(def);
   }
+}
+
+const prepareFunctionName = expr => {
+  expr.values = expr.values ? expr.values : [];
+  return expr;
 }
 
 module.exports = {
@@ -128,6 +132,7 @@ module.exports = {
   devide,
   parseExpr,
   parseDefinition,
+  prepareFunctionName,
   runtime
 }
 

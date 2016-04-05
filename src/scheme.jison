@@ -41,11 +41,11 @@ operators
 
 value
   : string
+  | expr
+  | definition
   | number
     { $$ = +$1 }
-  | expr
   | name
-  | definition
   | value space
   ;
 
@@ -76,7 +76,7 @@ definition
   :'(' define space name space value')'
     { $$ = { expr: $4, type: 'var', values: [$6] }}
   |'(' define space expr space values')'
-    { $$ = { expr: $4, type: 'function', values: $6 }}
+    { $$ = { expr: $4, type: 'function', values: $6 }; }
   | let_def
   | if_state
   ;
@@ -90,7 +90,7 @@ id
 
 expr
   : '(' id ')'
-    { $$ =  { id: $2 }}
+    { $$ =  { id: $2, values: [] }}
   | '(' id values ')'
     { $$ =  { id: $2, values: $3 }}
   |'(' lambda space expr space values')'
