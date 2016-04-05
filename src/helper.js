@@ -35,14 +35,18 @@ const _parseTypedExpression = expr => {
   }
 }
 
-const _parseLetDefinitions = def => {
-  def.expr = def.expr.map(v => {
+const _prepareLetVariables = expr => {
+  return expr.map(v => {
     return {
       expr: v.id,
       values: v.values,
       type: 'var'
     }
   });
+}
+
+const _parseLetDefinitions = def => {
+  def.expr = _prepareLetVariables(def.expr);
   const vars = def.expr.map(parseDefinition).join('');
   let expr;
   if (def.values.some(v => v.type != null)) {
@@ -54,7 +58,7 @@ const _parseLetDefinitions = def => {
     expr = def.values.map(parseExpr);
   }
   let lastExpr;
-  if(Array.isArray(expr)){
+  if (Array.isArray(expr)) {
     lastExpr = expr.pop();
   }
 
