@@ -1,6 +1,6 @@
 /* lexical grammar */
 %{
-  const helper = require('./helper.js');
+  const translator = require('./translator.js');
 %}
 
 %lex
@@ -37,13 +37,13 @@
 
 operators
   : '+'
-    { $$ = helper.add }
+    { $$ = translator.add }
   | '-'
-    { $$ = helper.substract }
+    { $$ = translator.substract }
   | '/'
-    { $$ = helper.devide }
+    { $$ = translator.devide }
   | '*'
-    { $$ = helper.multiply }
+    { $$ = translator.multiply }
   ;
 
 value
@@ -60,7 +60,7 @@ values
   : value
     { $$ = [$1] }
   | values value
-    { $$ = helper.collectArgs($1, $2)}
+    { $$ = translator.collectArgs($1, $2)}
   ;
 
 if_state
@@ -108,18 +108,18 @@ expr
   |'(' lambda expr values')'
     { $$ = { expr: $3, type: 'lambda', values: $4 }}
   | '(' list values ')'
-    { $$ = `Array(${$3.map(helper.parseExpr)})` }
+    { $$ = `Array(${$3.map(translator.parse)})` }
   | '(' list space values ')'
-    { $$ = `Array(${$4.map(helper.parseExpr)})` }
+    { $$ = `Array(${$4.map(translator.parse)})` }
   |'`' '(' values ')'
-    { $$ = `Array(${$3.map(helper.parseExpr)})` }
+    { $$ = `Array(${$3.map(translator.parse)})` }
   ;
 
 code
   : expr
-    { $$ = helper.parseExpr($1)}
+    { $$ = translator.parse($1)}
   | definition
-    { $$ = helper.parseDefinition($1) }
+    { $$ = translator.parse($1) }
   | space
   ;
 

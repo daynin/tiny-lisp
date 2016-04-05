@@ -1,5 +1,5 @@
 const parser = require('./scheme.js');
-const helper = require('./helper.js');
+const helper = require('./translator.js');
 
 const exec = code => {
   try {
