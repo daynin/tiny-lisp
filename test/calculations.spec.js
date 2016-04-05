@@ -23,7 +23,7 @@ describe('calculations', () => {
 
   describe('calculate inserted expressions', () => {
     it('should sum numbers and then sustract', () => {
-      const result = i.exec('(- 100 (+ 90 9))');
+      const result = i.exec('(- 100 0 (+ 90 9))');
       expect(result).toBe(1);
     });
 

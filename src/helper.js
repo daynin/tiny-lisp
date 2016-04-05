@@ -31,12 +31,12 @@ const _call = expr => {}
 
 const _parseIf = def => {
   return `(function(){
-      if (${parseExpr(def.cond)}){
-        return ${parseExpr(def.true)}
-      }else {
-        return ${parseExpr(def.false)}
-      }
-    })()`
+if (${parseExpr(def.cond)}){
+  return ${parseExpr(def.true)}
+}else {
+  return ${parseExpr(def.false)}
+}
+})()`
 }
 
 const _parseTypedExpression = expr => {
@@ -88,8 +88,8 @@ const collectArgs = (values, value) => {
 }
 
 const parseExpr = expr => {
-  if (expr.type === 'lambda') {
-    return _parseTypedExpression(expr);
+  if (expr.type) {
+    return parseDefinition(expr);
   } else if (expr.values) {
     if (expr.values.length > 1) {
       return `${expr.id}(${expr.values.map(parseExpr)})`;
@@ -114,6 +114,9 @@ const parseDefinition = def => {
     return _parseLetDefinitions(def);
   } else if (def.type === 'if'){
     return _parseIf(def);
+    return a;
+  } else if (def.type === 'lambda') {
+    return _parseTypedExpression(def);
   }
 }
 

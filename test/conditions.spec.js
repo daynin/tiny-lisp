@@ -21,5 +21,17 @@ describe('calculations', () => {
     expect(result3).toBe(-10);
     expect(result4).toBe(-10);
   });
+
+  it('should work with values', () => {
+    const result = i.exec('(if 1 2 3)');
+
+    expect(result).toBe(2);
+  });
+
+  it('should be able to be used as expr', () => {
+    const result = i.exec('(+ 10 20 (if 1 2 3))');
+
+    expect(result).toBe(32);
+  });
 });
 
