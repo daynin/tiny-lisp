@@ -1,5 +1,6 @@
 'use strict';
 const runtime = `
+'use strict';
 function add(a, b){ return a + b };
 function substract(a, b){ return a - b };
 function multiply(a, b){ return a * b };
@@ -43,8 +44,21 @@ const _parseLetDefinitions = def => {
     }
   });
   const vars = def.expr.map(parseDefinition).join('');
-  const expr = def.values.map(parseExpr);
-  const res = `${vars}\n${expr};\n`
+  let expr;
+  if (def.values.some(v => v.type != null)) {
+    def.values.map(v => {
+      v.internal = true;
+    });
+    expr = def.values.map(parseDefinition).join('');
+  } else {
+    expr = def.values.map(parseExpr);
+  }
+  let lastExpr;
+  if(Array.isArray(expr)){
+    lastExpr = expr.pop();
+  }
+
+  const res = `;${def.internal ? 'return' : ''}(function(){${vars}\n${expr};\n ${lastExpr ? 'return ' + lastExpr : ''}})()`
   return res;
 }
 
@@ -77,9 +91,9 @@ const parseExpr = expr => {
 
 const parseDefinition = def => {
   if (def.type === 'var') {
-    return `var ${def.expr} = ${parseExpr(def.values[0])};`
+    return `let ${def.expr} = ${parseExpr(def.values[0])};`
   } else if (def.type === 'function') {
-    return `var ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
+    return `let ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
   } else if (def.type === 'let') {
     return _parseLetDefinitions(def);
   }

@@ -114,6 +114,26 @@ describe('definision', () => {
       expect(result2).toBe(100);
       expect(result3).toBe(100);
     });
+
+    it('should return result of a last expression', () => {
+      const result = i.exec(`
+                          (let ((x 2) (y 3))
+                              (let ((foo (lambda (z) (+ x y z)))
+                                    (x 7))
+                                (foo 4)))
+                            `);
+
+      expect(result).toBe(14);
+    });
+
+    it('should return result of a last expression', () => {
+      const result = i.exec(`
+                            (let ((a 1) (b 1))
+                              (let ((c (* a b)))
+                                c))
+                            `);
+
+      expect(result).toBe(1);
+    });
   });
 });
-

@@ -45,6 +45,7 @@ value
     { $$ = +$1 }
   | expr
   | name
+  | definition
   ;
 
 values
