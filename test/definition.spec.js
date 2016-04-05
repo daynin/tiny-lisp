@@ -11,6 +11,12 @@ describe('definision', () => {
     }).not.toThrow();
   });
 
+  it('should define a list', () => {
+    const result = i.exec('(list 1 2 3 4)');
+
+    expect(result).toEqual([1, 2, 3, 4]);
+  });
+
   it('should return a value', () => {
     try {
       const result = i.exec('(define x 10)\n(x)');
@@ -137,3 +143,4 @@ describe('definision', () => {
     });
   });
 });
+

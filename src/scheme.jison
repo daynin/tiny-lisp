@@ -13,7 +13,13 @@
 '-'                             return '-'
 '*'                             return '*'
 '/'                             return '/'
+'<'                             return '<'
+'>'                             return '>'
+'>='                            return '>='
+'<='                            return '<='
+'='                             return '='
 'define'                        return 'define'
+'list'                          return 'list'
 'if'                            return 'if'
 'let'                           return 'let'
 'display'                       return 'display'
@@ -70,6 +76,7 @@ let_def
     { $$ = { expr: $5, type: 'let', values: $7 }}
   |'(' let space '(' values ')' space values ')'
     { $$ = { expr: $5, type: 'let', values: $8 }}
+  | list_state
   ;
 
 definition
@@ -99,6 +106,10 @@ expr
     { $$ = { expr: $3, type: 'lambda', values: $5 }}
   |'(' lambda expr values')'
     { $$ = { expr: $3, type: 'lambda', values: $4 }}
+  | '(' list values ')'
+    { $$ = `Array(${$3})` }
+  | '(' list space values ')'
+    { $$ = `Array(${$4})` }
   ;
 
 code
