@@ -6,6 +6,7 @@
 %lex
 %%
 <<EOF>>                         return 'end_of_file'
+[0-9]+("."[0-9]+)?\b            return 'number'
 '('                             return '('
 ')'                             return ')'
 '+'                             return '+'
@@ -20,7 +21,6 @@
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
 [a-zA-Z][a-zA-Z0-9?]*           return 'name'
-[0-9]+("."[0-9]+)?\b            return 'number'
 
 /lex
 
@@ -46,14 +46,19 @@ value
   | expr
   | name
   | definition
+  | value space
   ;
 
 values
   : value
     { $$ = [$1] }
-  | values space
   | values value
     { $$ = helper.collectArgs($1, $2)}
+  ;
+
+if_state
+  : '(' if space value value value ')'
+    { $$ = { type: 'if', cond: $4, true: $5, false: $6} }
   ;
 
 let_def
@@ -73,6 +78,7 @@ definition
   |'(' define space expr space values')'
     { $$ = { expr: $4, type: 'function', values: $6 }}
   | let_def
+  | if_state
   ;
 
 id

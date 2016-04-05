@@ -29,6 +29,16 @@ const devide = `(function(){
 
 const _call = expr => {}
 
+const _parseIf = def => {
+  return `(function(){
+      if (${parseExpr(def.cond)}){
+        return ${parseExpr(def.true)}
+      }else {
+        return ${parseExpr(def.false)}
+      }
+    })()`
+}
+
 const _parseTypedExpression = expr => {
   if (expr.type === 'lambda') {
     return `function(${expr.expr.id}){return ${parseExpr(expr.values[0])}}`;
@@ -102,6 +112,8 @@ const parseDefinition = def => {
     return `let ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
   } else if (def.type === 'let') {
     return _parseLetDefinitions(def);
+  } else if (def.type === 'if'){
+    return _parseIf(def);
   }
 }
 
