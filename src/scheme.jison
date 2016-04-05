@@ -14,6 +14,7 @@
 '/'                             return '/'
 'define'                        return 'define'
 'if'                            return 'if'
+'let'                           return 'let'
 'display'                       return 'display'
 'lambda'                        return 'lambda'
 \s+                             return 'space'
@@ -54,11 +55,23 @@ values
     { $$ = helper.collectArgs($1, $2)}
   ;
 
+let_def
+  :'(' let '(' values ')' values'')'
+    { $$ = { expr: $4, type: 'let', values: $6 }}
+  |'(' let '(' values ')' space values ')'
+    { $$ = { expr: $4, type: 'let', values: $7 }}
+  |'(' let space '(' values ')' values ')'
+    { $$ = { expr: $5, type: 'let', values: $7 }}
+  |'(' let space '(' values ')' space values ')'
+    { $$ = { expr: $5, type: 'let', values: $8 }}
+  ;
+
 definition
   :'(' define space name space value')'
     { $$ = { expr: $4, type: 'var', values: [$6] }}
   |'(' define space expr space values')'
     { $$ = { expr: $4, type: 'function', values: $6 }}
+  | let_def
   ;
 
 id

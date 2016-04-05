@@ -34,6 +34,20 @@ const _parseTypedExpression = expr => {
   }
 }
 
+const _parseLetDefinitions = def => {
+  def.expr = def.expr.map(v => {
+    return {
+      expr: v.id,
+      values: v.values,
+      type: 'var'
+    }
+  });
+  const vars = def.expr.map(parseDefinition).join('');
+  const expr = def.values.map(parseExpr);
+  const res = `${vars}\n${expr};\n`
+  return res;
+}
+
 const collectArgs = (values, value) => {
   if (Array.isArray(value)) {
     values = values.concat(value);
@@ -66,6 +80,8 @@ const parseDefinition = def => {
     return `var ${def.expr} = ${parseExpr(def.values[0])};`
   } else if (def.type === 'function') {
     return `var ${def.expr.id} = function(${def.expr.values}){ return ${parseExpr(def.values[0])} };`;
+  } else if (def.type === 'let') {
+    return _parseLetDefinitions(def);
   }
 }
 

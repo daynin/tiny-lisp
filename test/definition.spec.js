@@ -85,5 +85,35 @@ describe('definision', () => {
       expect(result).toBe(100);
     });
   });
+
+  describe('let definitions', () => {
+    it('should use let definitions in an expressions', () => {
+      const result = i.exec('(let ((x 2) (y 10))(* x y))');
+
+      expect(result).toBe(20);
+    });
+
+    it('should return result of a last expression', () => {
+      const result = i.exec('(let ((x 2) (y 10))(* x y)(+ x y))');
+
+      expect(result).toBe(12);
+    });
+
+    it('should return result of a last expression', () => {
+      const result = i.exec('(let ((foo (lambda (a) (* a a))))(foo 10))');
+
+      expect(result).toBe(100);
+    });
+
+    it('should ignore spaces', () => {
+      const result1 = i.exec('(let((foo (lambda (a) (* a a))))(foo 10))');
+      const result2 = i.exec('(let ((foo (lambda (a) (* a a))))(foo 10))');
+      const result3 = i.exec('(let ((foo (lambda (a) (* a a)))) (foo 10))');
+
+      expect(result1).toBe(100);
+      expect(result2).toBe(100);
+      expect(result3).toBe(100);
+    });
+  });
 });
 

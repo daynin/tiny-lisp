@@ -3,7 +3,8 @@ const helper = require('./helper.js');
 
 const exec = code => {
   try {
-    return eval(helper.runtime + parser.parse(code));
+    const r = parser.parse(code);
+    return eval(helper.runtime + r);
   } catch (err) {
     console.log(err.message);
   }
