@@ -18,6 +18,7 @@
 '>='                            return '>='
 '<='                            return '<='
 '='                             return '='
+'`'                             return '`'
 'define'                        return 'define'
 'list'                          return 'list'
 'if'                            return 'if'
@@ -110,6 +111,8 @@ expr
     { $$ = `Array(${$3.map(helper.parseExpr)})` }
   | '(' list space values ')'
     { $$ = `Array(${$4.map(helper.parseExpr)})` }
+  |'`' '(' values ')'
+    { $$ = `Array(${$3.map(helper.parseExpr)})` }
   ;
 
 code

@@ -17,6 +17,12 @@ describe('definision', () => {
     expect(result).toEqual([1, 2, 3, 4]);
   });
 
+  it('should define a list by using a backquote', () => {
+    const result = i.exec('`(1 2 3 4)');
+
+    expect(result).toEqual([1, 2, 3, 4]);
+  });
+
   it('should define a list', () => {
     const result = i.exec('(list 1 (lambda (x) (* x x)))');
 
