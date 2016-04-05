@@ -66,6 +66,12 @@ describe('definision', () => {
 
       expect(result).toBe(100);
     });
+
+    it('should be able to use lambda as an argument', () => {
+      const result = i.exec('(define (calc value action) (action value))(calc 10 (lambda (x) (* x x)))');
+
+      expect(result).toBe(100);
+    });
   });
 });
 
