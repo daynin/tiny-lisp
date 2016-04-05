@@ -45,25 +45,27 @@ const _prepareLetVariables = expr => {
   });
 }
 
-const _parseLetDefinitions = def => {
-  def.expr = _prepareLetVariables(def.expr);
-  const vars = def.expr.map(parseDefinition).join('');
-  let expr;
+const _prepareLetSubDefinitions = def => {
   if (def.values.some(v => v.type != null)) {
     def.values.map(v => {
       v.internal = true;
     });
-    expr = def.values.map(parseDefinition).join('');
+    return def.values.map(parseDefinition).join('');
   } else {
-    expr = def.values.map(parseExpr);
+    return def.values.map(parseExpr);
   }
+}
+
+const _parseLetDefinitions = def => {
+  def.expr = _prepareLetVariables(def.expr);
+  const vars = def.expr.map(parseDefinition).join('');
+  let expr = _prepareLetSubDefinitions(def);
   let lastExpr;
   if (Array.isArray(expr)) {
     lastExpr = expr.pop();
   }
 
-  const res = `;${def.internal ? 'return' : ''}(function(){${vars}\n${expr};\n ${lastExpr ? 'return ' + lastExpr : ''}})()`
-  return res;
+  return `;${def.internal ? 'return' : ''}(function(){${vars}\n${expr};\n ${lastExpr ? 'return ' + lastExpr : ''}})()`
 }
 
 const collectArgs = (values, value) => {
