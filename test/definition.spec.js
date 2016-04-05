@@ -17,6 +17,12 @@ describe('definision', () => {
     expect(result).toEqual([1, 2, 3, 4]);
   });
 
+  it('should define a list', () => {
+    const result = i.exec('(list 1 (lambda (x) (* x x)))');
+
+    expect(result[1](2)).toEqual(4);
+  });
+
   it('should return a value', () => {
     try {
       const result = i.exec('(define x 10)\n(x)');

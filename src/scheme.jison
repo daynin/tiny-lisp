@@ -107,9 +107,9 @@ expr
   |'(' lambda expr values')'
     { $$ = { expr: $3, type: 'lambda', values: $4 }}
   | '(' list values ')'
-    { $$ = `Array(${$3})` }
+    { $$ = `Array(${$3.map(helper.parseExpr)})` }
   | '(' list space values ')'
-    { $$ = `Array(${$4})` }
+    { $$ = `Array(${$4.map(helper.parseExpr)})` }
   ;
 
 code
