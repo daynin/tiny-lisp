@@ -16,6 +16,8 @@ function add(a, b){ return a + b };
 function substract(a, b){ return a - b };
 function multiply(a, b){ return a * b };
 function devide(a, b){ return a / b };
+function or(a, b){ return a || b };
+function and(a, b){ return a && b };
 function greater(arr){ return compare(arr, function(a, b){ return a > b})};
 function less(arr){ return compare(arr, function(a, b){ return a < b})};
 function greaterOrEqual(arr){ return compare(arr, function(a, b){ return a >= b})};
@@ -42,6 +44,12 @@ const multiply = `(function(){
 })`
 const devide = `(function(){
  return getArrayFromArgs(arguments).reduce(devide);
+})`
+const or = `(function(){
+ return getArrayFromArgs(arguments).reduce(or);
+})`
+const and = `(function(){
+ return getArrayFromArgs(arguments).reduce(and);
 })`
 const greater = `(function(){
  return greater(getArrayFromArgs(arguments));
@@ -165,6 +173,8 @@ module.exports = {
   substract,
   multiply,
   devide,
+  or,
+  and,
   greater,
   less,
   greaterOrEqual,

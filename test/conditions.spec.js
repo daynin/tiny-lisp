@@ -1,6 +1,6 @@
 const i = require('../../lib/interpreter.js');
 
-describe('calculations', () => {
+describe('condistions', () => {
   describe('comparision', () => {
     it('should return true if all numbers are greater each other', () => {
       const result = i.exec('(> 30 20 10)');
@@ -33,12 +33,37 @@ describe('calculations', () => {
     });
 
     it('should return true if numbers are greater or equal each other', () => {
-      const result = i.exec('(>= 10 10 7)');
+      const result = i.exec('(>= 10 10 7 7)');
       expect(result).toBe(true);
     });
 
     it('should return true if number are less or equal each other', () => {
-      const result = i.exec('(<=  5 4 4 3 2 2 1)');
+      const result = i.exec('(<=  1 1 2 2 3 3 3 4 5)');
+      expect(result).toBe(true);
+    });
+
+    it('should compare expr should be able to use result of another expression', () => {
+      const result = i.exec('(<= 1 1 2 (+ 1 1) 3)');
+      expect(result).toBe(true);
+    });
+
+    it('should compare by "or" and return true if any is true', () => {
+      const result = i.exec('(or true false true)');
+      expect(result).toBe(true);
+    });
+
+    it('should compare by "and" and return true if all of the values are true', () => {
+      const result = i.exec('(and true true true)');
+      expect(result).toBe(true);
+    });
+
+    it('should compare by "or" and return false if all is false', () => {
+      const result = i.exec('(or false false false)');
+      expect(result).toBe(false);
+    });
+
+    it('should compare by "and" and return false if any value is false', () => {
+      const result = i.exec('(and true false true)');
       expect(result).toBe(false);
     });
   });

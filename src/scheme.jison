@@ -25,6 +25,8 @@
 'let'                           return 'let'
 'display'                       return 'display'
 'lambda'                        return 'lambda'
+'or'                            return 'or'
+'and'                           return 'and'
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
 [a-zA-Z][a-zA-Z0-9?]*           return 'name'
@@ -54,6 +56,10 @@ operators
     { $$ = translator.less }
   | '='
     { $$ = translator.equal }
+  | 'or'
+    { $$ = translator.or}
+  | 'and'
+    { $$ = translator.and}
   ;
 
 value
