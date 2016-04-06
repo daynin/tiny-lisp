@@ -118,6 +118,10 @@ const _parseLetDefinitions = def => {
   return `;${def.internal ? 'return' : ''}(function(){${vars}\n${expr};\n ${lastExpr ? 'return ' + lastExpr : ''}})()`
 }
 
+const _parseSetDefinition = def => {
+  return `;${def.expr} = ${def.values[0]};`;
+}
+
 const collectArgs = (values, value) => {
   if (Array.isArray(value)) {
     values = values.concat(value);
@@ -139,6 +143,8 @@ const _parseDefinition = def => {
     return _parseIf(def);
   } else if (def.type === 'lambda') {
     return _parseTypedExpression(def);
+  } else if (def.type === 'set') {
+    return _parseSetDefinition(def);
   }
 }
 
@@ -161,7 +167,7 @@ const parse = expr => {
   if (expr.type) {
     return _parseDefinition(expr);
   } else if (expr.values) {
-    return  _constructFunctionCall(expr);
+    return _constructFunctionCall(expr);
   } else {
     return expr;
   }

@@ -154,5 +154,25 @@ describe('definision', () => {
       expect(result).toBe(1);
     });
   });
+
+  describe('set', () => {
+    it('should update a value in a variable', () => {
+      const result = i.exec('(define a 10)\n(set! a 20)\n(a)');
+
+      expect(result).toBe(20);
+    });
+
+    it('should ignore spasec', () => {
+      const result1 = i.exec('(define a 10)(set! a 20)(a)');
+      const result2 = i.exec('(define a 10) (set! a 20)(a)');
+      const result3 = i.exec('(define a 10) (set! a 20) (a)');
+      const result4 = i.exec('(define a 10)(set! a 20) (a)');
+
+      expect(result1).toBe(20);
+      expect(result2).toBe(20);
+      expect(result3).toBe(20);
+      expect(result4).toBe(20);
+    });
+  });
 });
 

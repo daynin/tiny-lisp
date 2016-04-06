@@ -23,6 +23,7 @@
 'list'                          return 'list'
 'if'                            return 'if'
 'let'                           return 'let'
+'set!'                          return 'set!'
 'display'                       return 'display'
 'lambda'                        return 'lambda'
 'or'                            return 'or'
@@ -65,7 +66,7 @@ operators
 value
   : string
   | expr
-  | definition
+  | statement
   | number
     { $$ = +$1 }
   | '-' number
@@ -86,7 +87,7 @@ if_state
     { $$ = { type: 'if', cond: $4, true: $5, false: $6} }
   ;
 
-let_def
+let_state
   :'(' let '(' values ')' values'')'
     { $$ = { expr: $4, type: 'let', values: $6 }}
   |'(' let '(' values ')' space values ')'
@@ -98,13 +99,21 @@ let_def
   | list_state
   ;
 
-definition
+set_state
+  : '(' 'set!'value value ')'
+    { $$ = { expr: $3, type: 'set', values: [$4]  } }
+  | '(' 'set!'space  value value ')'
+    { $$ = { expr: $4, type: 'set', values: [$5]  } }
+  ;
+
+statement
   :'(' define space name space value')'
     { $$ = { expr: $4, type: 'var', values: [$6] }}
   |'(' define space expr space values')'
     { $$ = { expr: $4, type: 'function', values: $6 }; }
-  | let_def
+  | let_state
   | if_state
+  | set_state
   ;
 
 id
@@ -136,7 +145,7 @@ expr
 code
   : expr
     { $$ = translator.parse($1)}
-  | definition
+  | statement
     { $$ = translator.parse($1) }
   | space
   ;
