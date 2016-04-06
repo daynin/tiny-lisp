@@ -24,6 +24,7 @@
 'if'                            return 'if'
 'let'                           return 'let'
 'set!'                          return 'set!'
+'do'                            return 'do'
 'display'                       return 'display'
 'lambda'                        return 'lambda'
 'or'                            return 'or'
@@ -140,6 +141,10 @@ expr
     { $$ = `Array(${$4.map(translator.parse)})` }
   |'`' '(' values ')'
     { $$ = `Array(${$3.map(translator.parse)})` }
+  | '(' do values')'
+    { $$ = { type: 'do', values: $3 }}
+  | '(' do space values')'
+    { $$ = { type: 'do', values: $4 }}
   ;
 
 code

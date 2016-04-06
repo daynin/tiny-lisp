@@ -145,6 +145,8 @@ const _parseDefinition = def => {
     return _parseTypedExpression(def);
   } else if (def.type === 'set') {
     return _parseSetDefinition(def);
+  } else if (def.type === 'do') {
+    return `${def.values.map(parse)}`;
   }
 }
 

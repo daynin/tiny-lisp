@@ -51,6 +51,11 @@ describe('calculations', () => {
       const result = i.exec('(+ (* 5 5)\n (/ 20 5)\n 1\t\n (+ 40 30))');
       expect(result).toBe(100);
     });
+
+    it('should call several expressions in sequence', () => {
+      const result = i.exec('(do (+ 10 20)\n(+ 50 50))');
+      expect(result).toBe(100);
+    });
   });
 });
 
