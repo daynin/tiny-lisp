@@ -75,8 +75,13 @@ describe('calculations', () => {
     });
 
     it('should return true if all numbers are equal each other', () => {
-      const result = i.exec('(= 10 10 30)');
+      const result = i.exec('(= 10 10 10)');
       expect(result).toBe(true);
+    });
+
+    it('should return true if any numbar is not equal to ather one', () => {
+      const result = i.exec('(= 10 1 10)');
+      expect(result).toBe(false);
     });
   });
 });

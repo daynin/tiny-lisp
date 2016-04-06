@@ -16,9 +16,9 @@ function add(a, b){ return a + b };
 function substract(a, b){ return a - b };
 function multiply(a, b){ return a * b };
 function devide(a, b){ return a / b };
-function greater(arr){ return compare(arr, function(a, b){return a > b})};
-function less(arr){ return compare(arr, function(a, b){return a < b})};
-function equal(arr){ return compare(arr, function(a, b){return a == b})};
+function greater(arr){ return compare(arr, function(a, b){ return a > b})};
+function less(arr){ return compare(arr, function(a, b){ return a < b})};
+function equal(arr){ return compare(arr, function(a, b){ return a == b})};
 function getArrayFromArgs(args){
 var result = [];
   for(var i = 0; i < args.length; i++){
@@ -45,10 +45,10 @@ const greater = `(function(){
  return greater(getArrayFromArgs(arguments));
 })`
 const less = `(function(){
- return getArrayFromArgs(arguments).reduce(less);
+ return less(getArrayFromArgs(arguments));
 })`
 const equal = `(function(){
- return getArrayFromArgs(arguments).reduce(equal);
+ return equal(getArrayFromArgs(arguments));
 })`
 
 const _call = expr => {}

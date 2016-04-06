@@ -39,5 +39,17 @@ describe('calculations', () => {
 
     expect(result).toBe('yes');
   });
+
+  it('should parse function definitions with an if statement, which contains comparison (positive)', () => {
+    const result = i.exec('(define (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 5)')
+
+    expect(result).toBe('yes');
+  });
+
+  it('should parse function definitions with an if statement, which contains comparison (negative)', () => {
+    const result = i.exec('(define (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 10)')
+
+    expect(result).toBe('no');
+  });
 });
 
