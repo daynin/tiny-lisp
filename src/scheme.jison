@@ -44,6 +44,10 @@ operators
     { $$ = translator.devide }
   | '*'
     { $$ = translator.multiply }
+  | '>' '='
+    { $$ = translator.greaterOrEqual }
+  | '<' '='
+    { $$ = translator.lessOrEqual }
   | '>'
     { $$ = translator.greater }
   | '<'

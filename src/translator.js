@@ -18,6 +18,8 @@ function multiply(a, b){ return a * b };
 function devide(a, b){ return a / b };
 function greater(arr){ return compare(arr, function(a, b){ return a > b})};
 function less(arr){ return compare(arr, function(a, b){ return a < b})};
+function greaterOrEqual(arr){ return compare(arr, function(a, b){ return a >= b})};
+function lessOrEqual(arr){ return compare(arr, function(a, b){ return a <= b})};
 function equal(arr){ return compare(arr, function(a, b){ return a == b})};
 function getArrayFromArgs(args){
 var result = [];
@@ -46,6 +48,12 @@ const greater = `(function(){
 })`
 const less = `(function(){
  return less(getArrayFromArgs(arguments));
+})`
+const greaterOrEqual = `(function(){
+ return greaterOrEqual(getArrayFromArgs(arguments));
+})`
+const lessOrEqual = `(function(){
+ return lessOrEqual(getArrayFromArgs(arguments));
 })`
 const equal = `(function(){
  return equal(getArrayFromArgs(arguments));
@@ -159,6 +167,8 @@ module.exports = {
   devide,
   greater,
   less,
+  greaterOrEqual,
+  lessOrEqual,
   equal,
   parse,
   prepareFunctionName,
