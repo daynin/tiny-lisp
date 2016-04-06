@@ -77,6 +77,14 @@ describe('condistions', () => {
       expect(result).toBe('yes');
     });
 
+    it('should parse if statement with only true way', () => {
+      const result = i.exec(`
+                          (if (+ 2 1)
+                                "yes")
+                          `);
+      expect(result).toBe('yes');
+    });
+
     it('should ignore spaces', () => {
       const result1 = i.exec('(if (+ 2 2) (- 10 20) (+ 10 20))');
       const result2 = i.exec('(if (+ 2 2)(- 10 20) (+ 10 20))');

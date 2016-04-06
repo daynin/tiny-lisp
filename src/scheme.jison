@@ -86,6 +86,8 @@ values
 if_state
   : '(' if space value value value ')'
     { $$ = { type: 'if', cond: $4, true: $5, false: $6} }
+  | '(' if space value value ')'
+    { $$ = { type: 'if', cond: $4, true: $5 } }
   ;
 
 let_state

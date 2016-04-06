@@ -70,6 +70,7 @@ const equal = `(function(){
 const _call = expr => {}
 
 const _parseIf = def => {
+  if(def.false){
   return `(function(){
 if (${parse(def.cond)}){
   return ${parse(def.true)}
@@ -77,6 +78,12 @@ if (${parse(def.cond)}){
   return ${parse(def.false)}
 }
 })()`
+  } else {
+  return `(function(){
+if (${parse(def.cond)}){
+  return ${parse(def.true)}
+}})()`
+  }
 }
 
 const _parseTypedExpression = expr => {
