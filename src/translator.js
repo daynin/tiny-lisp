@@ -103,6 +103,16 @@ const _parseDefinition = def => {
   }
 }
 
+const _constructFunctionCall = expr => {
+  if (expr.values.length > 1) {
+    return `${expr.id}(${expr.values.map(parse)})`;
+  } else if (expr.values.length === 1) {
+    return `${expr.id}(${expr.values.map(parse)})`;
+  } else {
+    return `if(typeof ${expr.id} === 'function') {${expr.id}()} else {${expr.id}}`
+  }
+}
+
 const prepareFunctionName = expr => {
   expr.values = expr.values ? expr.values : [];
   return expr;
@@ -112,13 +122,7 @@ const parse = expr => {
   if (expr.type) {
     return _parseDefinition(expr);
   } else if (expr.values) {
-    if (expr.values.length > 1) {
-      return `${expr.id}(${expr.values.map(parse)})`;
-    } else if(expr.values.length === 1) {
-      return `${expr.id}(${expr.values.map(parse)})`;
-    } else {
-      return `if(typeof ${expr.id} === 'function') {${expr.id}()} else {${expr.id}}`
-    }
+    return  _constructFunctionCall(expr);
   } else {
     return expr;
   }
