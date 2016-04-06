@@ -161,7 +161,7 @@ const _constructFunctionCall = expr => {
   } else if (expr.values.length === 1) {
     return `${expr.id}(${expr.values.map(parse)})`;
   } else {
-    return `(typeof ${expr.id} === 'function') ? ${expr.id}() : ${expr.id};`
+    return `(typeof ${expr.id} === 'function') ? ${expr.id}() : ${expr.id}`
   }
 }
 
