@@ -1,10 +1,24 @@
 'use strict';
 const runtime = `
 'use strict';
+function compare(arr, pred){
+  var res = true;
+  for(var i = 0; i < arr.length; i++){
+    if(arr[i + 1] != null && res){
+      res = res && pred(arr[i], arr[i + 1]);
+    } else {
+      break;
+    }
+  }
+  return res;
+}
 function add(a, b){ return a + b };
 function substract(a, b){ return a - b };
 function multiply(a, b){ return a * b };
 function devide(a, b){ return a / b };
+function greater(arr){ return compare(arr, function(a, b){return a > b})};
+function less(arr){ return compare(arr, function(a, b){return a < b})};
+function equal(arr){ return compare(arr, function(a, b){return a == b})};
 function getArrayFromArgs(args){
 var result = [];
   for(var i = 0; i < args.length; i++){
@@ -26,6 +40,15 @@ const multiply = `(function(){
 })`
 const devide = `(function(){
  return getArrayFromArgs(arguments).reduce(devide);
+})`
+const greater = `(function(){
+ return greater(getArrayFromArgs(arguments));
+})`
+const less = `(function(){
+ return getArrayFromArgs(arguments).reduce(less);
+})`
+const equal = `(function(){
+ return getArrayFromArgs(arguments).reduce(equal);
 })`
 
 const _call = expr => {}
@@ -134,6 +157,9 @@ module.exports = {
   substract,
   multiply,
   devide,
+  greater,
+  less,
+  equal,
   parse,
   prepareFunctionName,
   runtime

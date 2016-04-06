@@ -44,6 +44,12 @@ operators
     { $$ = translator.devide }
   | '*'
     { $$ = translator.multiply }
+  | '>'
+    { $$ = translator.greater }
+  | '<'
+    { $$ = translator.less }
+  | '='
+    { $$ = translator.equal }
   ;
 
 value
@@ -52,6 +58,8 @@ value
   | definition
   | number
     { $$ = +$1 }
+  | '-' number
+    { $$ = -$2 }
   | name
   | value space
   ;

@@ -6,9 +6,24 @@ describe('calculations', () => {
     expect(result).toBe(60);
   });
 
+  it('should sum positive and negative numbers', () => {
+    const result = i.exec('(+ 10 20 -30)');
+    expect(result).toBe(0);
+  });
+
   it('should substract numbers', () => {
     const result = i.exec('(- 10 20 30)');
     expect(result).toBe(-40);
+  });
+
+  it('should substract positive and negative numbers', () => {
+    const result = i.exec('(- 10 -20 30)');
+    expect(result).toBe(0);
+  });
+
+  it('should substract negative numbers', () => {
+    const result = i.exec('(- -10 -20 -30)');
+    expect(result).toBe(40);
   });
 
   it('should multiply numbers', () => {
@@ -36,7 +51,33 @@ describe('calculations', () => {
       const result = i.exec('(+ (* 5 5)\n (/ 20 5)\n 1\t\n (+ 40 30))');
       expect(result).toBe(100);
     });
+  });
 
+  describe('comparision', () => {
+    it('should return true if all numbers are greater each other', () => {
+      const result = i.exec('(> 30 20 10)');
+      expect(result).toBe(true);
+    });
+
+    it('should return false if all number are not greater each other', () => {
+      const result = i.exec('(> 50 10 30)');
+      expect(result).toBe(false);
+    });
+
+    it('should return true if all numbers are less each other', () => {
+      const result = i.exec('(< 10 20 30)');
+      expect(result).toBe(true);
+    });
+
+    it('should return false if all number are not less each other', () => {
+      const result = i.exec('(> 50 10 30)');
+      expect(result).toBe(false);
+    });
+
+    it('should return true if all numbers are equal each other', () => {
+      const result = i.exec('(= 10 10 30)');
+      expect(result).toBe(true);
+    });
   });
 });
 
