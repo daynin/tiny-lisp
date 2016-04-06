@@ -4,6 +4,7 @@ const helper = require('./translator.js');
 const exec = code => {
   try {
     const r = parser.parse(code);
+    console.log(r);
     return eval(helper.runtime + r);
   } catch (err) {
     console.log(err.message);

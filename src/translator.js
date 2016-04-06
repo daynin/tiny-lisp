@@ -67,8 +67,6 @@ const equal = `(function(){
  return equal(getArrayFromArgs(arguments));
 })`
 
-const _call = expr => {}
-
 const _parseIf = def => {
   if(def.false){
   return `(function(){
@@ -163,7 +161,7 @@ const _constructFunctionCall = expr => {
   } else if (expr.values.length === 1) {
     return `${expr.id}(${expr.values.map(parse)})`;
   } else {
-    return `if(typeof ${expr.id} === 'function') {${expr.id}()} else {${expr.id}}`
+    return `(typeof ${expr.id} === 'function') ? ${expr.id}() : ${expr.id};`
   }
 }
 
