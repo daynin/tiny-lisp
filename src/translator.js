@@ -93,7 +93,7 @@ const _parseDefinition = def => {
   if (def.type === 'var') {
     return `let ${def.expr} = ${parse(def.values[0])};`
   } else if (def.type === 'function') {
-    return `let ${def.expr.id} = function(${def.expr.values}){ return ${parse(def.values[0])} };`;
+    return `function ${def.expr.id}(${def.expr.values}){ return ${parse(def.values[0])} };`;
   } else if (def.type === 'let') {
     return _parseLetDefinitions(def);
   } else if (def.type === 'if') {
