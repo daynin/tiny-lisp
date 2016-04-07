@@ -86,19 +86,19 @@ values
     { $$ = translator.collectArgs($1, $2)}
   ;
 
-while_state
+while_statement
   : '(' while space value value')'
     {$$ = { type: 'while', pred: $4, body: $5 }}
   ;
 
-if_state
+if_statement
   : '(' if space value value value ')'
     { $$ = { type: 'if', cond: $4, true: $5, false: $6} }
   | '(' if space value value ')'
     { $$ = { type: 'if', cond: $4, true: $5 } }
   ;
 
-let_state
+let_statement
   :'(' let '(' values ')' values'')'
     { $$ = { expr: $4, type: 'let', values: $6 }}
   |'(' let '(' values ')' space values ')'
@@ -107,30 +107,34 @@ let_state
     { $$ = { expr: $5, type: 'let', values: $7 }}
   |'(' let space '(' values ')' space values ')'
     { $$ = { expr: $5, type: 'let', values: $8 }}
-  | list_state
+  | list_statement
   ;
 
-set_state
+set_statement
   : '(' 'set!' value value ')'
     { $$ = { expr: $3, type: 'set', values: [$4]  } }
   | '(' 'set!' space  value value ')'
     { $$ = { expr: $4, type: 'set', values: [$5]  } }
   ;
 
-require_state
+require_statement
   : '(' require name string ')'
     { $$ = { type: 'require', module: $3, path: $4  } }
   ;
 
-statement
+define_statement
   :'(' define space name space value')'
     { $$ = { expr: $4, type: 'var', values: [$6] }}
   |'(' define space expr space values')'
     { $$ = { expr: $4, type: 'function', values: $6 }; }
-  | let_state
-  | if_state
-  | set_state
-  | while_state
+  ;
+
+statement
+  : define_statement
+  | let_statement
+  | if_statement
+  | set_statement
+  | while_statement
   ;
 
 id
@@ -140,29 +144,45 @@ id
   | id space
   ;
 
-expr
+simple_expr
   : '(' id ')'
     { $$ =  { id: $2, values: [] }}
   | '(' ')'
     { $$ =  { values: [] }}
   | '(' id values ')'
     { $$ =  { id: $2, values: $3 }}
-  |'(' lambda space expr space values')'
+  ;
+
+lambda_expr
+  :'(' lambda space expr space values')'
     { $$ = { expr: $4, type: 'lambda', values: $6 }}
   |'(' lambda expr space values')'
     { $$ = { expr: $3, type: 'lambda', values: $5 }}
   |'(' lambda expr values')'
     { $$ = { expr: $3, type: 'lambda', values: $4 }}
-  | '(' list values ')'
+  ;
+
+list_expr
+  : '(' list values ')'
     { $$ = `Array(${$3.map(translator.parse)})` }
   | '(' list space values ')'
     { $$ = `Array(${$4.map(translator.parse)})` }
   |'`' '(' values ')'
     { $$ = `Array(${$3.map(translator.parse)})` }
-  | '(' do values')'
+  ;
+
+do_expr
+  : '(' do values')'
     { $$ = { type: 'do', values: $3 }}
   | '(' do space values')'
     { $$ = { type: 'do', values: $4 }}
+  ;
+
+expr
+  : simple_expr
+  | lambda_expr
+  | list_expr
+  | do_expr
   ;
 
 code
