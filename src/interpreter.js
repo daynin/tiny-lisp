@@ -13,4 +13,3 @@ const exec = code => {
 module.exports = {
   exec
 }
-

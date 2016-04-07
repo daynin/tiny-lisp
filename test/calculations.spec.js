@@ -53,8 +53,11 @@ describe('calculations', () => {
     });
 
     it('should call several expressions in sequence', () => {
-      const result = i.exec('(do (+ 10 20)\n(+ 50 50))');
-      expect(result).toBe(100);
+      const result1 = i.exec('(do (+ 10 20)\n(+ 50 50))');
+      const result2 = i.exec('(do (+ 10 20)\n(+ 20 20)\n(+ 30 30)\n(+ 40 40)\n(+ 10 20))');
+
+      expect(result1).toBe(100);
+      expect(result2).toBe(30);
     });
   });
 });

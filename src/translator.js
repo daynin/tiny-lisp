@@ -125,7 +125,7 @@ const _parseLetDefinitions = def => {
 }
 
 const _parseSetDefinition = def => {
-  return `(function(){${def.expr} = ${def.values.map(parse)[0]};return ${def.expr}})()`;
+  return `(function(){${def.expr} = ${def.values.map(parse)[0]};return ${def.expr}})()\n`;
 }
 
 const collectArgs = (values, value) => {
@@ -152,7 +152,10 @@ const _parseDefinition = def => {
   } else if (def.type === 'set') {
     return _parseSetDefinition(def);
   } else if (def.type === 'do') {
-    return `${def.values.map(parse)}`;
+    const lastExpr = def.values.pop();
+    const calls = def.values.map(parse).join(';');
+    const res = `(function(){${calls}; return ${parse(lastExpr)}})()`;
+    return res;
   }
 }
 
@@ -162,7 +165,7 @@ const _constructFunctionCall = expr => {
   } else if (expr.values.length === 1) {
     return `${expr.id}(${expr.values.map(parse)})`;
   } else {
-    return `;isFun(${expr.id}) ? ${expr.id}() : ${expr.id}`
+    return `isFun(${expr.id}) ? ${expr.id}() : ${expr.id}`
   }
 }
 
