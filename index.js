@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const fs = require('fs');
 const fileName = process.argv[2];
 const i = require('./lib/interpreter.js');
