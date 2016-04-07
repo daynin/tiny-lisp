@@ -1,3 +1,3 @@
-o![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
+![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
 ##Coming soon...
