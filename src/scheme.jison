@@ -19,16 +19,17 @@
 '<='                            return '<='
 '='                             return '='
 '`'                             return '`'
-'def'                        return 'def'
+'def'                           return 'def'
 'list'                          return 'list'
 'if'                            return 'if'
 'let'                           return 'let'
 'set!'                          return 'set!'
 'do'                            return 'do'
 'print'                         return 'print'
-'fn'                        return 'fn'
+'fn'                            return 'fn'
 'or'                            return 'or'
 'and'                           return 'and'
+'not'                           return 'not'
 'while'                         return 'while'
 'require'                       return 'require'
 \s+                             return 'space'
@@ -65,6 +66,8 @@ operators
     { $$ = translator.or}
   | 'and'
     { $$ = translator.and}
+  | 'not'
+    { $$ = translator.not }
   ;
 
 value

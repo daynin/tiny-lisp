@@ -52,6 +52,9 @@ const or = `(function(){
 const and = `(function(){
  return getArrayFromArgs(arguments).reduce(and);
 })`
+const not = `(function(){
+ return !getArrayFromArgs(arguments)[0];
+})`
 const greater = `(function(){
  return greater(getArrayFromArgs(arguments));
 })`
@@ -213,6 +216,7 @@ module.exports = {
   devide,
   or,
   and,
+  not,
   greater,
   less,
   greaterOrEqual,

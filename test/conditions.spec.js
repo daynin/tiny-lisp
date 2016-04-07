@@ -66,6 +66,16 @@ describe('condistions', () => {
       const result = i.exec('(and true false true)');
       expect(result).toBe(false);
     });
+
+    it('should invert value of logical operation if "not" operator is used before (should work for "and")', () => {
+      const result = i.exec('(not (and true false true))');
+      expect(result).toBe(true);
+    });
+
+    it('should invert value of logical operation if "not" operator is used before (should work for "or")', () => {
+      const result = i.exec('(not (or true false true))');
+      expect(result).toBe(false);
+    });
   });
   describe('if', () => {
     it('should parse if statement', () => {
