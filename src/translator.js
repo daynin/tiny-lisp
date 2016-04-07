@@ -85,8 +85,8 @@ if (${parse(def.cond)}){
   }
 }
 
-const _parseLambdaExpression = expr => {
-  if (expr.type === 'lambda') {
+const _parseFnExpression = expr => {
+  if (expr.type === 'fn') {
     return `function(${expr.expr.id}){return ${parse(expr.values[0])}}`;
   }
 }
@@ -156,8 +156,8 @@ const _parseTypedExpression = def => {
     return _parseLetDefinitions(def);
   } else if (def.type === 'if') {
     return _parseIf(def);
-  } else if (def.type === 'lambda') {
-    return _parseLambdaExpression(def);
+  } else if (def.type === 'fn') {
+    return _parseFnExpression(def);
   } else if (def.type === 'set') {
     return _parseSetDefinition(def);
   } else if (def.type === 'do') {

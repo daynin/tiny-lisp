@@ -26,7 +26,7 @@
 'set!'                          return 'set!'
 'do'                            return 'do'
 'print'                         return 'print'
-'lambda'                        return 'lambda'
+'fn'                        return 'fn'
 'or'                            return 'or'
 'and'                           return 'and'
 'while'                         return 'while'
@@ -153,13 +153,13 @@ simple_expr
     { $$ =  { id: $2, values: $3 }}
   ;
 
-lambda_expr
-  :'(' lambda space expr space values')'
-    { $$ = { expr: $4, type: 'lambda', values: $6 }}
-  |'(' lambda expr space values')'
-    { $$ = { expr: $3, type: 'lambda', values: $5 }}
-  |'(' lambda expr values')'
-    { $$ = { expr: $3, type: 'lambda', values: $4 }}
+fn_expr
+  :'(' fn space expr space values')'
+    { $$ = { expr: $4, type: 'fn', values: $6 }}
+  |'(' fn expr space values')'
+    { $$ = { expr: $3, type: 'fn', values: $5 }}
+  |'(' fn expr values')'
+    { $$ = { expr: $3, type: 'fn', values: $4 }}
   ;
 
 list_expr
@@ -185,7 +185,7 @@ print_expr
 
 expr
   : simple_expr
-  | lambda_expr
+  | fn_expr
   | list_expr
   | do_expr
   | print_expr

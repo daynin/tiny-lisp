@@ -19,7 +19,7 @@ describe('simple progs', () => {
 
 (def n 0)
 
-(until (lambda () (< n 10)) (lambda () (set! n (+ n 1))))
+(until (fn () (< n 10)) (fn () (set! n (+ n 1))))
 (n)
                           `);
     expect(result).toBe(10);

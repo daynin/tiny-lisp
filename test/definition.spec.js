@@ -24,7 +24,7 @@ describe('definision', () => {
   });
 
   it('should def a list', () => {
-    const result = i.exec('(list 1 (lambda (x) (* x x)))');
+    const result = i.exec('(list 1 (fn (x) (* x x)))');
 
     expect(result[1](2)).toEqual(4);
   });
@@ -78,27 +78,27 @@ describe('definision', () => {
     });
   });
 
-  describe('lambda definition', () => {
-    it('should be able to save lambda in a variable', () => {
-      const result = i.exec('(def square (lambda (x) (* x x)))(square 10)');
+  describe('fn definition', () => {
+    it('should be able to save fn in a variable', () => {
+      const result = i.exec('(def square (fn (x) (* x x)))(square 10)');
 
       expect(result).toBe(100);
     });
 
-    it('should ignore a space between the "lambda" keyword and a list of args', () => {
-      const result = i.exec('(def square (lambda(x) (* x x)))(square 10)');
+    it('should ignore a space between the "fn" keyword and a list of args', () => {
+      const result = i.exec('(def square (fn(x) (* x x)))(square 10)');
 
       expect(result).toBe(100);
     });
 
-    it('should ignore a space between the "lambda" keyword and a list of args', () => {
-      const result = i.exec('(def square (lambda(x)(* x x)))(square 10)');
+    it('should ignore a space between the "fn" keyword and a list of args', () => {
+      const result = i.exec('(def square (fn(x)(* x x)))(square 10)');
 
       expect(result).toBe(100);
     });
 
-    it('should be able to use lambda as an argument', () => {
-      const result = i.exec('(def (calc value action) (action value))(calc 10 (lambda (x) (* x x)))');
+    it('should be able to use fn as an argument', () => {
+      const result = i.exec('(def (calc value action) (action value))(calc 10 (fn (x) (* x x)))');
 
       expect(result).toBe(100);
     });
@@ -118,15 +118,15 @@ describe('definision', () => {
     });
 
     it('should return result of a last expression', () => {
-      const result = i.exec('(let ((foo (lambda (a) (* a a))))(foo 10))');
+      const result = i.exec('(let ((foo (fn (a) (* a a))))(foo 10))');
 
       expect(result).toBe(100);
     });
 
     it('should ignore spaces', () => {
-      const result1 = i.exec('(let((foo (lambda (a) (* a a))))(foo 10))');
-      const result2 = i.exec('(let ((foo (lambda (a) (* a a))))(foo 10))');
-      const result3 = i.exec('(let ((foo (lambda (a) (* a a)))) (foo 10))');
+      const result1 = i.exec('(let((foo (fn (a) (* a a))))(foo 10))');
+      const result2 = i.exec('(let ((foo (fn (a) (* a a))))(foo 10))');
+      const result3 = i.exec('(let ((foo (fn (a) (* a a)))) (foo 10))');
 
       expect(result1).toBe(100);
       expect(result2).toBe(100);
@@ -136,7 +136,7 @@ describe('definision', () => {
     it('should return result of a last expression', () => {
       const result = i.exec(`
                           (let ((x 2) (y 3))
-                              (let ((foo (lambda (z) (+ x y z)))
+                              (let ((foo (fn (z) (+ x y z)))
                                     (x 7))
                                 (foo 4)))
                             `);
