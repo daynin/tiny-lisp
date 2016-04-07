@@ -1,4 +1,4 @@
-const parser = require('./scheme.js');
+const parser = require('./tiny-lisp.js');
 const helper = require('./translator.js');
 
 const exec = code => {
