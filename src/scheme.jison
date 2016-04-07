@@ -129,6 +129,8 @@ id
 expr
   : '(' id ')'
     { $$ =  { id: $2, values: [] }}
+  | '(' ')'
+    { $$ =  { values: [] }}
   | '(' id values ')'
     { $$ =  { id: $2, values: $3 }}
   |'(' lambda space expr space values')'
