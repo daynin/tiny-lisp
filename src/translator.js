@@ -85,7 +85,7 @@ if (${parse(def.cond)}){
   }
 }
 
-const _parseTypedExpression = expr => {
+const _parseLambdaExpression = expr => {
   if (expr.type === 'lambda') {
     return `function(${expr.expr.id}){return ${parse(expr.values[0])}}`;
   }
@@ -106,7 +106,7 @@ const _prepareLetSubDefinitions = def => {
     def.values.map(v => {
       v.internal = true;
     });
-    return def.values.map(_parseDefinition).join('');
+    return def.values.map(_parseTypedExpression).join('');
   } else {
     return def.values.map(parse);
   }
@@ -114,7 +114,7 @@ const _prepareLetSubDefinitions = def => {
 
 const _parseLetDefinitions = def => {
   def.expr = _prepareLetVariables(def.expr);
-  const vars = def.expr.map(_parseDefinition).join('');
+  const vars = def.expr.map(_parseTypedExpression).join('');
   let expr = _prepareLetSubDefinitions(def);
   let lastExpr;
   if (Array.isArray(expr)) {
@@ -143,7 +143,11 @@ const _parseRequireState = def => {
   return `const ${def.module} = require(${def.path});`
 }
 
-const _parseDefinition = def => {
+const _parsePrintState = def => {
+  return `console.log(${parse(def.value)})`;
+}
+
+const _parseTypedExpression = def => {
   if (def.type === 'var') {
     return `let ${def.expr} = ${parse(def.values[0])};`
   } else if (def.type === 'function') {
@@ -153,7 +157,7 @@ const _parseDefinition = def => {
   } else if (def.type === 'if') {
     return _parseIf(def);
   } else if (def.type === 'lambda') {
-    return _parseTypedExpression(def);
+    return _parseLambdaExpression(def);
   } else if (def.type === 'set') {
     return _parseSetDefinition(def);
   } else if (def.type === 'do') {
@@ -162,6 +166,8 @@ const _parseDefinition = def => {
     return _parseWhileState(def);
   } else if (def.type === 'require'){
     return _parseRequireState(def);
+  } else if (def.type === 'print'){
+    return _parsePrintState(def);
   }
 }
 
@@ -191,7 +197,7 @@ const prepareFunctionName = expr => {
 
 const parse = expr => {
   if (expr.type) {
-    return _parseDefinition(expr);
+    return _parseTypedExpression(expr);
   } else if (expr.values) {
     return _constructFunctionCall(expr);
   } else {

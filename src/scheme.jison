@@ -19,13 +19,13 @@
 '<='                            return '<='
 '='                             return '='
 '`'                             return '`'
-'define'                        return 'define'
+'def'                        return 'def'
 'list'                          return 'list'
 'if'                            return 'if'
 'let'                           return 'let'
 'set!'                          return 'set!'
 'do'                            return 'do'
-'display'                       return 'display'
+'print'                         return 'print'
 'lambda'                        return 'lambda'
 'or'                            return 'or'
 'and'                           return 'and'
@@ -123,9 +123,9 @@ require_statement
   ;
 
 define_statement
-  :'(' define space name space value')'
+  :'(' def space name space value')'
     { $$ = { expr: $4, type: 'var', values: [$6] }}
-  |'(' define space expr space values')'
+  |'(' def space expr space values')'
     { $$ = { expr: $4, type: 'function', values: $6 }; }
   ;
 
@@ -178,11 +178,17 @@ do_expr
     { $$ = { type: 'do', values: $4 }}
   ;
 
+print_expr
+  : '(' print space value ')'
+    { $$ = { type: 'print', value: $4 } }
+  ;
+
 expr
   : simple_expr
   | lambda_expr
   | list_expr
   | do_expr
+  | print_expr
   ;
 
 code

@@ -110,19 +110,19 @@ describe('condistions', () => {
     });
 
     it('should parse function definitions with an if statement', () => {
-      const result = i.exec('(define (if2) (if 2 "yes" "no"))(if2)')
+      const result = i.exec('(def (if2) (if 2 "yes" "no"))(if2)')
 
       expect(result).toBe('yes');
     });
 
     it('should parse function definitions with an if statement, which contains comparison (positive)', () => {
-      const result = i.exec('(define (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 5)')
+      const result = i.exec('(def (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 5)')
 
       expect(result).toBe('yes');
     });
 
     it('should parse function definitions with an if statement, which contains comparison (negative)', () => {
-      const result = i.exec('(define (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 10)')
+      const result = i.exec('(def (ifLessThan10 n) (if (< n 10) "yes" "no"))(ifLessThan10 10)')
 
       expect(result).toBe('no');
     });
