@@ -12,6 +12,7 @@ function compare(arr, pred){
   }
   return res;
 }
+function isFun(obj) { return typeof obj === 'function'; }
 function add(a, b){ return a + b };
 function substract(a, b){ return a - b };
 function multiply(a, b){ return a * b };
@@ -124,7 +125,7 @@ const _parseLetDefinitions = def => {
 }
 
 const _parseSetDefinition = def => {
-  return `;${def.expr} = ${def.values[0]};`;
+  return `(function(){${def.expr} = ${def.values.map(parse)[0]};return ${def.expr}})()`;
 }
 
 const collectArgs = (values, value) => {
@@ -161,7 +162,7 @@ const _constructFunctionCall = expr => {
   } else if (expr.values.length === 1) {
     return `${expr.id}(${expr.values.map(parse)})`;
   } else {
-    return `(typeof ${expr.id} === 'function') ? ${expr.id}() : ${expr.id}`
+    return `;isFun(${expr.id}) ? ${expr.id}() : ${expr.id}`
   }
 }
 
