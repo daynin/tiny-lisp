@@ -29,6 +29,7 @@
 'lambda'                        return 'lambda'
 'or'                            return 'or'
 'and'                           return 'and'
+'while'                         return 'while'
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
 [a-zA-Z][a-zA-Z0-9?]*           return 'name'
@@ -83,6 +84,11 @@ values
     { $$ = translator.collectArgs($1, $2)}
   ;
 
+while_state
+  : '(' while space value value')'
+    {$$ = { type: 'while', pred: $4, body: $5 }}
+  ;
+
 if_state
   : '(' if space value value value ')'
     { $$ = { type: 'if', cond: $4, true: $5, false: $6} }
@@ -117,6 +123,7 @@ statement
   | let_state
   | if_state
   | set_state
+  | while_state
   ;
 
 id

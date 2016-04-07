@@ -69,8 +69,8 @@ const equal = `(function(){
 })`
 
 const _parseIf = def => {
-  if(def.false){
-  return `(function(){
+  if (def.false) {
+    return `(function(){
 if (${parse(def.cond)}){
   return ${parse(def.true)}
 }else {
@@ -78,7 +78,7 @@ if (${parse(def.cond)}){
 }
 })()`
   } else {
-  return `(function(){
+    return `(function(){
 if (${parse(def.cond)}){
   return ${parse(def.true)}
 }})()`
@@ -128,15 +128,16 @@ const _parseSetDefinition = def => {
   return `(function(){${def.expr} = ${def.values.map(parse)[0]};return ${def.expr}})()\n`;
 }
 
-const collectArgs = (values, value) => {
-  if (Array.isArray(value)) {
-    values = values.concat(value);
-  } else {
-    values.push(value);
-  }
-  return values;
+const _parseDoState = def => {
+  const lastExpr = def.values.pop();
+  const calls = def.values.map(parse).join(';');
+  const res = `(function(){${calls}; return ${parse(lastExpr)}})()`;
+  return res;
 }
 
+const _parseWhileState = def => {
+  return `while(${parse(def.pred)}){${parse(def.body)}}`
+}
 
 const _parseDefinition = def => {
   if (def.type === 'var') {
@@ -152,10 +153,9 @@ const _parseDefinition = def => {
   } else if (def.type === 'set') {
     return _parseSetDefinition(def);
   } else if (def.type === 'do') {
-    const lastExpr = def.values.pop();
-    const calls = def.values.map(parse).join(';');
-    const res = `(function(){${calls}; return ${parse(lastExpr)}})()`;
-    return res;
+    return _parseDoState(def);
+  } else if (def.type === 'while'){
+    return _parseWhileState(def);
   }
 }
 
@@ -167,6 +167,15 @@ const _constructFunctionCall = expr => {
   } else {
     return `isFun(${expr.id}) ? ${expr.id}() : ${expr.id}`
   }
+}
+
+const collectArgs = (values, value) => {
+  if (Array.isArray(value)) {
+    values = values.concat(value);
+  } else {
+    values.push(value);
+  }
+  return values;
 }
 
 const prepareFunctionName = expr => {
