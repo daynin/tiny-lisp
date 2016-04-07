@@ -139,6 +139,10 @@ const _parseWhileState = def => {
   return `while(${parse(def.pred)}){${parse(def.body)}}`
 }
 
+const _parseRequireState = def => {
+  return `const ${def.module} = require(${def.path});`
+}
+
 const _parseDefinition = def => {
   if (def.type === 'var') {
     return `let ${def.expr} = ${parse(def.values[0])};`
@@ -156,6 +160,8 @@ const _parseDefinition = def => {
     return _parseDoState(def);
   } else if (def.type === 'while'){
     return _parseWhileState(def);
+  } else if (def.type === 'require'){
+    return _parseRequireState(def);
   }
 }
 

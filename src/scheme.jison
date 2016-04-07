@@ -30,8 +30,10 @@
 'or'                            return 'or'
 'and'                           return 'and'
 'while'                         return 'while'
+'require'                       return 'require'
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
+\;[^\n]*&                       return 'comment'
 [a-zA-Z][a-zA-Z0-9?]*           return 'name'
 
 /lex
@@ -109,10 +111,15 @@ let_state
   ;
 
 set_state
-  : '(' 'set!'value value ')'
+  : '(' 'set!' value value ')'
     { $$ = { expr: $3, type: 'set', values: [$4]  } }
-  | '(' 'set!'space  value value ')'
+  | '(' 'set!' space  value value ')'
     { $$ = { expr: $4, type: 'set', values: [$5]  } }
+  ;
+
+require_state
+  : '(' require name string ')'
+    { $$ = { type: 'require', module: $3, path: $4  } }
   ;
 
 statement
@@ -164,6 +171,8 @@ code
   | statement
     { $$ = translator.parse($1) }
   | space
+  | comment
+    { $$ = '' }
   ;
 
 program
