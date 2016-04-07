@@ -4,8 +4,20 @@
   "description": "A super small and pretty simple Lisp to JS compiler",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "gulp test"
   },
+  "author": {
+    "name": "Sergey Golovin",
+    "email": "golovim@gmail.com",
+    "url": "http://github.com/daynin"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "bin": {
+    "tiny-lisp": "index.js"
+  },
+  "license": "MIT",
   "keywords": [
     "javascript",
     "lisp",
