@@ -146,7 +146,11 @@ if (${parse(def.cond)}){
 
 const _parseFnExpression = expr => {
   if (expr.type === 'fn') {
-    return `function(${expr.expr.id}){return ${parse(expr.values[0])}}`;
+    if (expr.expr.values.length > 0) {
+      return `function(${[expr.expr.id].concat(expr.expr.values)}){return ${expr.values.map(parse)}}`;
+    } else {
+      return `function(${expr.expr.id}){return ${expr.values.map(parse)}}`;
+    }
   }
 }
 

@@ -102,6 +102,17 @@ describe('definision', () => {
 
       expect(result).toBe(100);
     });
+
+    it('should define a lambda with two or more args', () => {
+      const result = i.exec(
+        `
+        (def test (fn (a b) (+ a b)))
+        (test 10 20)
+        `
+      );
+
+      expect(result).toBe(30);
+    });
   });
 
   describe('let definitions', () => {
