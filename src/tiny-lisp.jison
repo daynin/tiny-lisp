@@ -75,6 +75,8 @@ operators
 standard_functions
   : conj
     { $$ = translator.conj }
+  | nth
+    { $$ = translator.nth }
   ;
 
 value
