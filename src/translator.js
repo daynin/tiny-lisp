@@ -36,40 +36,49 @@ var result = [];
 
 const add = `(function(){
  return getArrayFromArgs(arguments).reduce(add);
-})`
+})`;
 const substract = `(function(){
  return getArrayFromArgs(arguments).reduce(substract);
-})`
+})`;
 const multiply = `(function(){
  return getArrayFromArgs(arguments).reduce(multiply);
-})`
+})`;
 const devide = `(function(){
  return getArrayFromArgs(arguments).reduce(devide);
-})`
+})`;
 const or = `(function(){
  return getArrayFromArgs(arguments).reduce(or);
-})`
+})`;
 const and = `(function(){
  return getArrayFromArgs(arguments).reduce(and);
-})`
+})`;
 const not = `(function(){
  return !getArrayFromArgs(arguments)[0];
-})`
+})`;
 const greater = `(function(){
  return greater(getArrayFromArgs(arguments));
-})`
+})`;
 const less = `(function(){
  return less(getArrayFromArgs(arguments));
-})`
+})`;
 const greaterOrEqual = `(function(){
  return greaterOrEqual(getArrayFromArgs(arguments));
-})`
+})`;
 const lessOrEqual = `(function(){
  return lessOrEqual(getArrayFromArgs(arguments));
-})`
+})`;
 const equal = `(function(){
  return equal(getArrayFromArgs(arguments));
-})`
+})`;
+const conj = `
+(function(array, elem){
+  if(Array.isArray(array)){
+    array.push(elem);
+    return array;
+  } else {
+   throw new Error(array + ' is not an array');
+  }
+})`;
 
 const _parseIf = def => {
   if (def.false) {
@@ -224,6 +233,7 @@ module.exports = {
   equal,
   parse,
   prepareFunctionName,
-  runtime
+  runtime,
+  conj
 }
 

@@ -31,6 +31,8 @@
 'and'                           return 'and'
 'not'                           return 'not'
 'while'                         return 'while'
+'conj'                          return 'conj'
+'nth'                           return 'nth'
 'require'                       return 'require'
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
@@ -68,6 +70,11 @@ operators
     { $$ = translator.and}
   | 'not'
     { $$ = translator.not }
+  ;
+
+standard_functions
+  : conj
+    { $$ = translator.conj }
   ;
 
 value
@@ -143,6 +150,7 @@ statement
 id
   : name
   | operators
+  | standard_functions
   | space name
   | id space
   ;
