@@ -33,6 +33,10 @@
 'while'                         return 'while'
 'conj'                          return 'conj'
 'nth'                           return 'nth'
+'map'                           return 'map'
+'filter'                        return 'filter'
+'reduce'                        return 'reduce'
+'each'                          return 'each'
 'require'                       return 'require'
 \s+                             return 'space'
 \"[^\"\n]*\"                    return 'string'
@@ -77,6 +81,14 @@ standard_functions
     { $$ = translator.conj }
   | nth
     { $$ = translator.nth }
+  | map
+    { $$ = translator.map }
+  | filter
+    { $$ = translator.filter }
+  | reduce
+    { $$ = translator.reduce }
+  | each
+    { $$ = translator.each }
   ;
 
 value

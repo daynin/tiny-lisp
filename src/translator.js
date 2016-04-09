@@ -87,6 +87,42 @@ const nth = `
   } else if(typeof array === "string"){
     return array.substring(index, index + 1);
   } else {
+   throw new Error(array + ' is not an array or string');
+  }
+})`;
+
+const map = `
+(function(fn, array){
+  if(Array.isArray(array)){
+    return array.map(fn);
+  } else {
+   throw new Error(array + ' is not an array');
+  }
+})`;
+
+const filter = `
+(function(fn, array){
+  if(Array.isArray(array)){
+    return array.filter(fn);
+  } else {
+   throw new Error(array + ' is not an array');
+  }
+})`;
+
+const reduce = `
+(function(fn, array){
+  if(Array.isArray(array)){
+    return array.reduce(fn);
+  } else {
+   throw new Error(array + ' is not an array');
+  }
+})`;
+
+const each = `
+(function(fn, array){
+  if(Array.isArray(array)){
+    return array.forEach(fn);
+  } else {
    throw new Error(array + ' is not an array');
   }
 })`;
@@ -185,11 +221,11 @@ const _parseTypedExpression = def => {
     return _parseSetDefinition(def);
   } else if (def.type === 'do') {
     return _parseDoState(def);
-  } else if (def.type === 'while'){
+  } else if (def.type === 'while') {
     return _parseWhileState(def);
-  } else if (def.type === 'require'){
+  } else if (def.type === 'require') {
     return _parseRequireState(def);
-  } else if (def.type === 'print'){
+  } else if (def.type === 'print') {
     return _parsePrintState(def);
   }
 }
@@ -246,6 +282,10 @@ module.exports = {
   prepareFunctionName,
   runtime,
   conj,
-  nth
+  nth,
+  map,
+  filter,
+  reduce,
+  each
 }
 
