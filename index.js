@@ -9,9 +9,11 @@ const i = require('./lib/interpreter.js');
 const repl = () => {
   prompts.question('> ', code => {
     try {
-      const result = i.exec(code);
-      console.log(result);
-    } catch(err){
+      const result = i.exec(data);
+      if (result) {
+        console.log(result);
+      }
+    } catch (err) {
       console.error(err);
     }
     repl();
@@ -21,7 +23,10 @@ const repl = () => {
 const execFile = () => {
   fs.readFile(fileName, 'utf8', (err, data) => {
     if (!err) {
-      console.log(i.exec(data));
+      const result = i.exec(data);
+      if (result) {
+        console.log(result);
+      }
     } else {
       console.error(err.message);
     }
