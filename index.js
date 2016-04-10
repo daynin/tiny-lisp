@@ -9,7 +9,7 @@ const i = require('./lib/interpreter.js');
 const repl = () => {
   prompts.question('> ', code => {
     try {
-      const result = i.exec(data);
+      const result = i.exec(code);
       if (result !== undefined) {
         console.log(result);
       }
