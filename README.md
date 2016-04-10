@@ -9,6 +9,8 @@
 
 This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Now it has many already developed features, but at the same time, it has many features I want to develop.
 
+[![asciicast](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o.png)](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o)
+
 What does it have?
 
 ##### Simple operations
