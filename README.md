@@ -1,8 +1,15 @@
+[![npm](https://img.shields.io/npm/v/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/dm/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/dt/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/l/tiny-lisp.svg)]()
+
 ![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
 ###Tiny Lisp
 
 This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Now it has many already developed features, but at the same time, it has many features I want to develop.
+
+[![asciicast](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o.png)](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o)
 
 What does it have?
 
