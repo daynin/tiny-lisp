@@ -1,6 +1,5 @@
 [![npm](https://img.shields.io/npm/v/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/dm/tiny-lisp.svg)]()
-[![npm](https://img.shields.io/npm/dt/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/l/tiny-lisp.svg)]()
 [![build](https://travis-ci.org/daynin/tiny-lisp.svg?branch=master)]()
 
