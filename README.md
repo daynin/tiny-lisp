@@ -13,7 +13,7 @@ This is a small and simple but very powerful lisp written in JavaScript and [Jis
 
 See a video and examples below to understand how much features already developed in this language.
 
-[![asciicast](https://asciinema.org/a/1st51h1pqsq0s1ukg5qf9ctci.png)](https://asciinema.org/a/1st51h1pqsq0s1ukg5qf9ctci)
+[![asciicast](https://asciinema.org/a/aeef1y3i22kigzfd7b5cb3fio.png)](https://asciinema.org/a/aeef1y3i22kigzfd7b5cb3fio)
 
 ##### Simple operations
 
