@@ -10,7 +10,7 @@ const repl = () => {
   prompts.question('> ', code => {
     try {
       const result = i.exec(data);
-      if (result) {
+      if (result !== undefined) {
         console.log(result);
       }
     } catch (err) {
@@ -24,7 +24,7 @@ const execFile = () => {
   fs.readFile(fileName, 'utf8', (err, data) => {
     if (!err) {
       const result = i.exec(data);
-      if (result) {
+      if (result !== undefined) {
         console.log(result);
       }
     } else {
