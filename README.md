@@ -7,11 +7,13 @@
 
 ###Tiny Lisp
 
-This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Now it has many already developed features, but at the same time, it has many features I want to develop.
+This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Of course, it's not a serious language for solving production problems, but if you want to understand how to write your our programming language (or another formal language), you're always welcome to use or contribute to this language.
+
+#### What this language can do?
+
+See a video and examples below to understand how much features already developed in this language.
 
 [![asciicast](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o.png)](https://asciinema.org/a/d7j80vqtt9xcq5pijc3l4u59o)
-
-What does it have?
 
 ##### Simple operations
 
@@ -112,6 +114,15 @@ What does it have?
 (nth l 2) ; 3
 ```
 
+##### let
+
+```lisp
+(let ((a 1) (b 1))
+  (let ((c (* a b)))
+    c))
+; returns 1
+```
+
 ##### Fibonacci example
 
 ```lisp
@@ -128,3 +139,32 @@ What does it have?
            (print (+ n " Fibonacci number is " (fib n)))))
 
 ```
+
+### Installation
+
+```bash
+npm i -g tiny-lisp
+```
+
+### Usage
+
+Repl mode:
+
+```
+tiny-lisp
+```
+
+Execute file:
+
+```
+tiny-lisp prog.tl
+```
+
+### Goals
+
+- Develop modules system;
+- Extend standard library;
+- Improve performance;
+- Develop interoperability with JS;
+
+### I need your help :)
