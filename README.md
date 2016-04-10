@@ -1,3 +1,8 @@
+[![npm](https://img.shields.io/npm/v/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/dm/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/dt/tiny-lisp.svg)]()
+[![npm](https://img.shields.io/npm/l/tiny-lisp.svg)]()
+
 ![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
 ###Tiny Lisp
