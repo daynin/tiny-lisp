@@ -27,6 +27,7 @@ const execFile = () => {
       if (result !== undefined) {
         console.log(result);
       }
+      prompts.close();
     } else {
       console.error(err.message);
     }
