@@ -28,5 +28,6 @@ config.gypi
 CVS
 npm-debug.log
 fundoc-parser-logo.png
+.travis.yml
 
 
