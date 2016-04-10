@@ -2,6 +2,10 @@
   "name": "tiny-lisp",
   "version": "0.0.5",
   "description": "A super small and pretty simple Lisp to JS compiler",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:daynin/tiny-lisp.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "gulp build"
