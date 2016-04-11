@@ -1,7 +1,7 @@
 [![npm](https://img.shields.io/npm/v/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/dm/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/l/tiny-lisp.svg)]()
-[![build](https://travis-ci.org/daynin/tiny-lisp.svg?branch=master)]()
+[![Build Status](https://travis-ci.org/daynin/tiny-lisp.svg?branch=master)](https://travis-ci.org/daynin/tiny-lisp)
 
 ![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
