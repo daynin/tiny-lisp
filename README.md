@@ -139,7 +139,7 @@ See a video and examples below to understand how much features already developed
 (let ((a 1) (b 1))
   (let ((c (* a b)))
     c))
-; returns 1
+; 1
 ```
 
 ##### Fibonacci example
