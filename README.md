@@ -126,7 +126,8 @@ See a video and examples below to understand how much features already developed
 (reduce (fn (a b) (+ a b)) l) 
 ; 10
 
-(conj l 5) ; [1, 2, 3, 4, 5]
+(conj l 5) 
+; [1, 2, 3, 4, 5]
 
 (nth l 2) 
 ; 3
