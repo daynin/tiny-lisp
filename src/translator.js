@@ -191,46 +191,46 @@ const _parseSetDefinition = def => {
   return `(function(){${def.expr} = ${def.values.map(parse)[0]};return ${def.expr}})()\n`;
 }
 
-const _parseDoState = def => {
-  const lastExpr = def.values.pop();
-  const calls = def.values.map(parse).join(';');
+const _parseDoState = state => {
+  const lastExpr = state.values.pop();
+  const calls = state.values.map(parse).join(';');
   const res = `(function(){${calls}; return ${parse(lastExpr)}})()`;
   return res;
 }
 
-const _parseWhileState = def => {
-  return `while(${parse(def.pred)}){${parse(def.body)}}`
+const _parseWhileState = state => {
+  return `while(${parse(state.pred)}){${parse(state.body)}}`
 }
 
-const _parseRequireState = def => {
-  return `const ${def.module} = require(${def.path});`
+const _parseRequireState = state => {
+  return `const ${state.module} = require(${state.path});`
 }
 
-const _parsePrintState = def => {
-  return `console.log(${parse(def.value)})`;
+const _parsePrintState = state => {
+  return `console.log(${parse(state.value)})`;
 }
 
-const _parseTypedExpression = def => {
-  if (def.type === 'var') {
-    return `let ${def.expr} = ${parse(def.values[0])};`
-  } else if (def.type === 'function') {
-    return `function ${def.expr.id}(${def.expr.values}){ return ${parse(def.values[0])} };`;
-  } else if (def.type === 'let') {
-    return _parseLetDefinitions(def);
-  } else if (def.type === 'if') {
-    return _parseIf(def);
-  } else if (def.type === 'fn') {
-    return _parseFnExpression(def);
-  } else if (def.type === 'set') {
-    return _parseSetDefinition(def);
-  } else if (def.type === 'do') {
-    return _parseDoState(def);
-  } else if (def.type === 'while') {
-    return _parseWhileState(def);
-  } else if (def.type === 'require') {
-    return _parseRequireState(def);
-  } else if (def.type === 'print') {
-    return _parsePrintState(def);
+const _parseTypedExpression = expr => {
+  if (expr.type === 'var') {
+    return `let ${expr.expr} = ${parse(expr.values[0])};`
+  } else if (expr.type === 'function') {
+    return `function ${expr.expr.id}(${expr.expr.values}){ return ${parse(expr.values[0])} };`;
+  } else if (expr.type === 'let') {
+    return _parseLetDefinitions(expr);
+  } else if (expr.type === 'if') {
+    return _parseIf(expr);
+  } else if (expr.type === 'fn') {
+    return _parseFnExpression(expr);
+  } else if (expr.type === 'set') {
+    return _parseSetDefinition(expr);
+  } else if (expr.type === 'do') {
+    return _parseDoState(expr);
+  } else if (expr.type === 'while') {
+    return _parseWhileState(expr);
+  } else if (expr.type === 'require') {
+    return _parseRequireState(expr);
+  } else if (expr.type === 'print') {
+    return _parsePrintState(expr);
   }
 }
 

@@ -8,7 +8,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "gulp build"
+    "test": "gulp build",
+    "start": "gulp serve",
+    "build": "build"
   },
   "author": "Sergey Golovin <golovim@gmail.com> (http://github.com/daynin)",
   "directories": {
