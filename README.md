@@ -1,7 +1,7 @@
 [![npm](https://img.shields.io/npm/v/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/dm/tiny-lisp.svg)]()
 [![npm](https://img.shields.io/npm/l/tiny-lisp.svg)]()
-[![build](https://travis-ci.org/daynin/tiny-lisp.svg?branch=master)]()
+[![Build Status](https://travis-ci.org/daynin/tiny-lisp.svg?branch=master)](https://travis-ci.org/daynin/tiny-lisp)
 
 ![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
@@ -18,24 +18,35 @@ See a video and examples below to understand how much features already developed
 ##### Simple operations
 
 ```lisp
-(+ 1 2) ; 3
-(* 2 2 2) ; 8
-(/ 4 2) ; 2
-(- 5 3) ; 2
+(+ 1 2) 
+; 3
 
-(+ (* 2 2) (/ 30 5)) ; 10
+(* 2 2 2) 
+; 8
 
-(+ "Hello, " "world" "!") ; Hello, world!
+(/ 4 2) 
+; 2
+
+(- 5 3) 
+; 2
+
+(+ (* 2 2) (/ 30 5)) 
+; 10
+
+(+ "Hello, " "world" "!") 
+; Hello, world!
 ```
 
 ##### Definitions
 
 ```lisp
 (def a 10)
-(a) ; 10
+(a) 
+; 10
 
 (def (sum a b) (+ a b))
-(sum 10 20) ; 30
+(sum 10 20) 
+; 30
 ```
 
 ##### "set!" function for mutating variables
@@ -44,7 +55,8 @@ See a video and examples below to understand how much features already developed
 (def a 10)
 (set! a 20)
 
-(a) ; 20
+(a) 
+; 20
 ```
 
 ##### "do" function for sequential expressions execution. It always returns a result of the last expression
@@ -52,7 +64,8 @@ See a video and examples below to understand how much features already developed
 ```lisp
 (do (+ 1 2)
     (* 2 2)
-    (/ 15 5)) ; 5
+    (/ 15 5)) 
+; 5
 ```
 
 ##### Conditions
@@ -60,7 +73,8 @@ See a video and examples below to understand how much features already developed
 ```lisp
 (if (< 10 20)
     true
-    false) ; true
+    false) 
+; true
 ```
 ##### Loops
 
@@ -103,15 +117,20 @@ See a video and examples below to understand how much features already developed
 ```lisp
 (def l `(1 2 3 4))
 
-(map (fn (x) (* x x)) l) ; [1, 4, 9, 16]
+(map (fn (x) (* x x)) l) 
+; [1, 4, 9, 16]
 
-(filter (fn (x) (> x 2)) l) ; [3, 4]
+(filter (fn (x) (> x 2)) l) 
+; [3, 4]
 
-(reduce (fn (a b) (+ a b)) l) ; 10
+(reduce (fn (a b) (+ a b)) l) 
+; 10
 
-(conj l 5) ; [1, 2, 3, 4, 5]
+(conj l 5) 
+; [1, 2, 3, 4, 5]
 
-(nth l 2) ; 3
+(nth l 2) 
+; 3
 ```
 
 ##### let
@@ -120,7 +139,7 @@ See a video and examples below to understand how much features already developed
 (let ((a 1) (b 1))
   (let ((c (* a b)))
     c))
-; returns 1
+; 1
 ```
 
 ##### Fibonacci example
