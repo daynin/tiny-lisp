@@ -65,7 +65,7 @@ See a video and examples below to understand how much features already developed
 (do (+ 1 2)
     (* 2 2)
     (/ 15 5)) 
-; 5
+; 3
 ```
 
 ##### Conditions
