@@ -7,7 +7,7 @@
 
 ###Tiny Lisp
 
-This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Of course, it's not a serious language for solving production problems, but if you want to understand how to write your our programming language (or another formal language), you're always welcome to use or contribute to this language.
+This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Of course, it's not a serious language for solving production problems, but if you want to understand how to write your own programming language (or another formal language), you're always welcome to use or contribute to this language.
 
 #### What this language can do?
 
