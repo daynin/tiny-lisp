@@ -5,7 +5,7 @@
 
 ![](https://raw.githubusercontent.com/daynin/scheme-js/master/tiny-lisp-logo.png)
 
-###Tiny Lisp
+### Tiny Lisp
 
 This is a small and simple but very powerful lisp written in JavaScript and [Jison](http://zaa.ch/jison/). Of course, it's not a serious language for solving production problems, but if you want to understand how to write your own programming language (or another formal language), you're always welcome to use or contribute to this language.
 
