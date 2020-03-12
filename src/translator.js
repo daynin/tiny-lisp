@@ -1,131 +1,5 @@
-'use strict';
-const runtime = `
-'use strict';
-function compare(arr, pred){
-  var res = true;
-  for(var i = 0; i < arr.length; i++){
-    if(arr[i + 1] != null && res){
-      res = res && pred(arr[i], arr[i + 1]);
-    } else {
-      break;
-    }
-  }
-  return res;
-}
-function isFun(obj) { return typeof obj === 'function'; }
-function add(a, b){ return a + b };
-function substract(a, b){ return a - b };
-function multiply(a, b){ return a * b };
-function devide(a, b){ return a / b };
-function or(a, b){ return a || b };
-function and(a, b){ return a && b };
-function greater(arr){ return compare(arr, function(a, b){ return a > b})};
-function less(arr){ return compare(arr, function(a, b){ return a < b})};
-function greaterOrEqual(arr){ return compare(arr, function(a, b){ return a >= b})};
-function lessOrEqual(arr){ return compare(arr, function(a, b){ return a <= b})};
-function equal(arr){ return compare(arr, function(a, b){ return a == b})};
-function getArrayFromArgs(args){
-var result = [];
-  for(var i = 0; i < args.length; i++){
-    result.push(args[i]);
-  }
-  return result;
-}
-
-`;
-
-const add = `(function(){
- return getArrayFromArgs(arguments).reduce(add);
-})`;
-const substract = `(function(){
- return getArrayFromArgs(arguments).reduce(substract);
-})`;
-const multiply = `(function(){
- return getArrayFromArgs(arguments).reduce(multiply);
-})`;
-const devide = `(function(){
- return getArrayFromArgs(arguments).reduce(devide);
-})`;
-const or = `(function(){
- return getArrayFromArgs(arguments).reduce(or);
-})`;
-const and = `(function(){
- return getArrayFromArgs(arguments).reduce(and);
-})`;
-const not = `(function(){
- return !getArrayFromArgs(arguments)[0];
-})`;
-const greater = `(function(){
- return greater(getArrayFromArgs(arguments));
-})`;
-const less = `(function(){
- return less(getArrayFromArgs(arguments));
-})`;
-const greaterOrEqual = `(function(){
- return greaterOrEqual(getArrayFromArgs(arguments));
-})`;
-const lessOrEqual = `(function(){
- return lessOrEqual(getArrayFromArgs(arguments));
-})`;
-const equal = `(function(){
- return equal(getArrayFromArgs(arguments));
-})`;
-const conj = `
-(function(array, elem){
-  if(Array.isArray(array)){
-    array.push(elem);
-    return array;
-  } else {
-   throw new Error(array + ' is not an array');
-  }
-})`;
-
-const nth = `
-(function(array, index){
-  if(Array.isArray(array)){
-    return array[index];
-  } else if(typeof array === "string"){
-    return array.substring(index, index + 1);
-  } else {
-   throw new Error(array + ' is not an array or string');
-  }
-})`;
-
-const map = `
-(function(fn, array){
-  if(Array.isArray(array)){
-    return array.map(fn);
-  } else {
-   throw new Error(array + ' is not an array');
-  }
-})`;
-
-const filter = `
-(function(fn, array){
-  if(Array.isArray(array)){
-    return array.filter(fn);
-  } else {
-   throw new Error(array + ' is not an array');
-  }
-})`;
-
-const reduce = `
-(function(fn, array){
-  if(Array.isArray(array)){
-    return array.reduce(fn);
-  } else {
-   throw new Error(array + ' is not an array');
-  }
-})`;
-
-const each = `
-(function(fn, array){
-  if(Array.isArray(array)){
-    return array.forEach(fn);
-  } else {
-   throw new Error(array + ' is not an array');
-  }
-})`;
+const runtime = require('./runtime');
+const stdlib = require('./stdlib');
 
 const _parseIf = def => {
   if (def.false) {
@@ -268,28 +142,11 @@ const parse = expr => {
   }
 }
 
-module.exports = {
-  collectArgs,
-  add,
-  substract,
-  multiply,
-  devide,
-  or,
-  and,
-  not,
-  greater,
-  less,
-  greaterOrEqual,
-  lessOrEqual,
-  equal,
-  parse,
-  prepareFunctionName,
-  runtime,
-  conj,
-  nth,
-  map,
-  filter,
-  reduce,
-  each
-}
+module.exports = Object.assign({},
+  stdlib, {
+    collectArgs,
+    parse,
+    prepareFunctionName,
+    runtime,
+  });
 

@@ -6,7 +6,7 @@ const exec = code => {
     const r = parser.parse(code);
     return eval(helper.runtime + r);
   } catch (err) {
-    console.log(err.message);
+    console.error(err.message);
   }
 }
 
