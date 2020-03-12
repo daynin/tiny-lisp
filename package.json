@@ -1,6 +1,6 @@
 {
   "name": "tiny-lisp",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A super small and pretty simple Lisp to JS compiler",
   "repository": {
     "type": "git",
